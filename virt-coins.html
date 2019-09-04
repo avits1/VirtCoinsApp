@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cryptonite App - Proj02</title>
+
+    <!-- // BOOTSTRAP 4.3.1 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- // FONTAWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">        
+
+    <!-- // JQUERY 3.4.1 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="assets/js/bootstrap-toggle-334.js"></script>
+    <!-- // JQUERY UI 1.12.1 for Tabs -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- CANVAS JS GRAPH -->
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <!-- // LOCAL CSS + BS SWITCH + JQERY UI TABS-->
+    <link rel="stylesheet" href="assets/styles/bootstrap-toggle-334.css">    
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+    <link rel="stylesheet" href="assets/styles/style1.css">
+
+</head>
+<body>
+
+    <!-- POPUP + COVER elements: -->
+    <div class="cover-vcoins"></div>
+    <div class="popup-vcoins"></div> 
+    
+    <div class="main-spinner">  <!-- text-primary text-success text-info -->
+            <div class="spinner-border text-info home-spinner" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <!-- <div class="spinner-grow home-spinner"  role="status">
+                <span class="sr-only">Loading...</span>
+            </div>         -->
+    </div>
+
+    <!-- // BASIC DIV BS CONTAINER FLUID -->
+    <div class="container-fluid">
+        <div class="row bg-info text-white main-panel">
+            <div class="col-md-9"> 
+                <h1 class=" px-4 pt-4 main-header">Cryptonite</h1>
+                <h3 class=" pl-4 second-header">Virtual Coins Trade Info System</h3>
+            </div> <!--  end col-md-9 -->
+            <div class="col-md-3"> 
+                <div class="crypto ">
+                    <img src="assets/media/crypto03.jpg" alt="cryptonite-03"
+                             class="crypto-image rounded">
+                </div>
+            </div> <!--  end col-md-3 -->
+        </div> <!--  end row -->
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tab-home">Home</a></li>
+                <li><a href="#tab-reports" onclick="getVCoinsGraph()" >Reports</a></li>
+                <li><a href="#tab-about">About</a></li>
+            </ul>
+            <div id="tab-home">
+
+                <div class="row">
+                    <div class="col-md-4"> 
+                        <div class="input-group my-3 mx-0 p-0" id="vcoin_search">
+                            <input type="text" class="form-control" id="vcoin_search_text" placeholder="Search Coin .." aria-label="vcoin search"
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="searchVirtCoin()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div> <!-- div-input-group -->
+                    </div><!--  end col-md-4 #1 search panel -->
+                    
+                    <div class="col-md-3"> 
+                        <div class="alert alert-danger home-msgs mt-3 ml-1 p-2">
+                        </div>
+                    </div><!--  end col-md-4 #2 alert message -->
+
+                </div> <!--  end row -->
+                    
+                <div class="row">
+                    <div class="col-md-12"> 
+                        <div id="virt-coins-wrapper"></div>                    
+                    </div><!--  end col-md-12 -->
+                </div> <!--  end row -->
+                            
+            </div> <!-- END TAB HOME -->
+
+
+            <div id="tab-reports">
+                <h2 class="alert alert-danger text-center report-alert">ALERT REPORTS IS HERE</h2>
+                <div class="row">
+                    <div class="col-md-12"> 
+                        <!-- <div id="virt-coins-graph"></div>                     -->
+                        <div id="vcoinsChartContainer" class="virt-coins-graph"></div>
+                    </div><!--  end col-md-12 -->
+                </div> <!--  end row -->
+            </div> <!-- END TAB REPORTS -->
+                  
+            <div id="tab-about">
+                <div class="row">
+                    <div class="col-md-8"> 
+                        <h2>Project: Virtual Coins Trade Info System</h2>
+                        <h3>Developed By: Avraham Tsivoni, Karmiel (for project #2)</h4>
+                        <br>
+                        <h5>this project is targeted to give the user info about one or several virtual coins</h5>   
+                        <br>
+                        <h5>Home Tab: </h5>
+                        <ul>
+                            <li>list of all virtual coins available</li>
+                            <li>search by symbol / single coin info</li>
+                            <li>compare up to 5 virtual coins</li>
+                        </ul>                        
+                        <h5>Reports Tab: </h5>
+                        <ul>
+                            <li>real time reports graph</li>
+                            <li>shows upto 5 chosen virtual coins</li>
+                            <li>updates every 2 seconds</li>
+                        </ul>            
+                    </div><!--  end col-md-8 #about-left proj details -->    
+
+                    <div class="col-md-4"> 
+                        <br>
+                        <img class="mypic" src="./assets/media/avraham-0219.jpg" alt="perosonal picture, avraham">
+                    </div><!--  end col-md-4 #about-right developer picture -->                    
+
+                </div> <!--  end row -->            
+        
+            </div> <!-- END TAB ABOUT -->
+
+
+        </div> <!--  END DIV TABS -->
+
+
+    </div>   <!-- container-fluid -->
+
+    <!-- // LOCAL JS / JQUERY -->
+    <script src="assets/js/vcoins1.js"></script>
+
+</body>
+</html>

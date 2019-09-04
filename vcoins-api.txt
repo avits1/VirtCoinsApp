@@ -1,0 +1,20 @@
+
+general api site:
+https://www.coingecko.com/en/api
+
+1. coins list: GET
+https://api.coingecko.com/api/v3/coins/list
+
+2. coin info by ID: GET {id}
+https://api.coingecko.com/api/v3/coins/ {bitcoin/etherium/...}
+
+3.  crypto compare graph:
+
+https://min-api.cryptocompare.com/   - general info
+https://min-api.cryptocompare.com/documentation?key=Price&cat=multipleSymbolsPriceEndpoint - link doc. price multi symbols
+
+get Calls:
+https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR
+https://min-api.cryptocompare.com/data/pricrmulti?fsysms=ETH,BTC&tsyms=USD
+
+https://min-api.cryptocompare.com/data/pricrmulti?fsysms=eth,btc&tsyms=USD
