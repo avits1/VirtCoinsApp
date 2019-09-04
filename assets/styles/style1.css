@@ -103,6 +103,15 @@
     display: none;
 }
 
+#tab-reports {
+    background-color: cyan;
+    /* background-color: lightblue; // OK */   
+    /* background-color: #2B60DE; Royal - OK */
+    /* background-color: #488AC7; Silk - OK */
+    /* background-color: #2B65EC; Ocean - OK */
+    /* background-color: #3BB9FF; DeepSky */
+}
+
 /* 
 .vcoin {
     padding: 1%;

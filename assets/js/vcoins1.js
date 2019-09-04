@@ -391,7 +391,16 @@ function saveMoreInfo(selected_id, coin_more_data) {
     localStorage.more_info_cache_ls = JSON.stringify(more_info_cache); // Save in LS    
 }
 
+///////// Main Tabs Click Functions  ////////////////////
+function tabHomeClick() {
+    if(stop_graph != null)
+        clearInterval(stop_graph);
+}
 
+function tabAboutClick() {
+    if(stop_graph != null)
+        clearInterval(stop_graph);
+}
 
 //// GRAPH AND V.COINS API COMPARE FUNCS:   ////////////////////////////////////
 
@@ -559,7 +568,7 @@ function getVirtCoinsCompare(coins_list, init_graph){
         success:function( result ){
             coins_compare = result;
             incGetCompare++; /// TEST
-            console.log(incGetCompare + " -- getVirtCoinsCompare - Results Rates:  --"); // TEST ..
+            // console.log(incGetCompare + " -- getVirtCoinsCompare - Results Rates:  --"); // TEST ..
             for (let idx = 0 ; idx < coins_list.length ; idx++) {                
                 let vcoin_symbol = coins_list[idx].vcoin_symbol.toUpperCase(); 
                 let vcoin_res = coins_compare[vcoin_symbol];                
