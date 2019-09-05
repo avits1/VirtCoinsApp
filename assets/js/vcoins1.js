@@ -1,21 +1,4 @@
 
-// POPUP & COVER click Event Sample:
-// $(document).ready(function(){
-//     getEmployees();
-//     $(".cover").on("click",function(){
-//         $(".cover").hide(500);
-//         $(".popup").hide(500);
-//     });
-// });
-
-// LS INIT SAMPLE:
-// $(document).ready(function(){
-//     if(localStorage.some_id) {
-//         localStorage.some_id="";
-//     }
-// });
-
-
 var coins_data = [];
 var coin_more_data = {};
 var more_info_cache = [];
@@ -30,14 +13,7 @@ $(document).ready(function(){
     $( function() {
         $( "#tabs" ).tabs({
             active: 0,
-          });
-        // console.log("Tabs: #tab-reports was directed to activate: function");
-        // $( "#tab-reports" ).tabs({            
-        //     activate: function (e, ui) {
-        //         console.log("Tabs: #tab-reports was activated !!");
-        //         getVCoinsGraph();
-        //     }
-        // });          
+          });       
     } );
         
     if( localStorage.more_info_cache_ls ){
@@ -169,14 +145,13 @@ function printVirtCoin(vcoin, vindex) {
         $(vcoin_name).addClass("card-text");
         $(vcoin_name).text(vcoin.name);        
 
-        // let btn_info = $("<div class='btn btn-primary btn_more mb-2'>More Info</div>"); // &nbsp
         let btn_info = $("<div class='btn btn-primary btn_more mb-2'></div>");        
         let btn_spinner1 = $(`<span class="spinner-border text-warning spinner-border-sm mx-2 btn-spinner1" role="status" aria-hidden="true"></span>`);
         // let btn_spinner1 = $(`<span class="spinner-grow spinner-grow-sm mx-2 btn-spinner1" role="status aria-hidden="true"></div>`)
         let btn_spinner2 = $(`<span class="sr-only">Loading...</span>`);
         $(btn_info).on("click",function(){
             if(!$(this).next().is(":visible")) {                
-                // TODO: find spinner1 INSIDE btn_info !!
+                // TODO/CHECK: find spinner1 INSIDE btn_info !!
                 // $(this).first-child().has(".btn-spinner1").show(200);
                 getVCoinMoreInfo(vcoin.id); // erase content & build & show
             } else {
@@ -226,13 +201,10 @@ function vcoinsPopUp() {
 
     let popup_alert_line = $(`<div class='d-flex alert alert-danger font-weight-bold 
                             text-sm-center my-0 py-1 popup_alert_line'></div>`);        
-    // $(popup_alert_line).text("NO COIN CHOSEN !");    
-    $(popup_alert_line).text("[ NO ALERT ]");// defalut - for vertical space in pop up
+    $(popup_alert_line).text("[          ]");// defalut - for vertical space in pop up        
     $(selected_frame).append(popup_alert_line);    
 
-    // let popup_btn_line = $("<div class='d-flex mt-1 justify-content-between popup_btn_line'></div>");    
-    let popup_btn_line = $("<div class='d-flex justify-content-between popup_btn_line'></div>");        
-    
+    let popup_btn_line = $("<div class='d-flex justify-content-between popup_btn_line'></div>"); 
     let btn_cancel =  $("<div class='btn btn-danger m-1'>Cancel</div>");
     let btn_replace =  $("<div class='btn btn-success m-1'>Replace</div>");
     $(btn_replace).on("click",function(){
@@ -418,7 +390,7 @@ var graph_options = {
 		text: "Click Legend to Hide or Unhide Data Series"
 	}],
 	axisX: {
-        title: "Hours / Minutes / Seconds"
+        title: "Hours:Minutes:Seconds"
 	},
 	axisY: {
         title: "Coin Value",
@@ -532,7 +504,6 @@ function addDataPoint (coin_idx, vcoin_symbol) {
 }
 
 const MAX_DATA_POINTS = 25;
-var incGetCompare = 0; /// TEST
 
 function removeLastPoint (coin_idx) {
     if (graph_options.data[coin_idx].dataPoints.length > MAX_DATA_POINTS) {
@@ -543,7 +514,6 @@ function removeLastPoint (coin_idx) {
 function createDataPoint(coinVal) {
     let currDataPoint = {
         x: new Date($.now()), // (new Date).getTime();
-        // x: $.now(),
         y: coinVal
     }
     return currDataPoint;
@@ -566,17 +536,15 @@ function getVirtCoinsCompare(coins_list, init_graph){
         type:"GET",
         data: {},
         success:function( result ){
-            coins_compare = result;
-            incGetCompare++; /// TEST
-            // console.log(incGetCompare + " -- getVirtCoinsCompare - Results Rates:  --"); // TEST ..
+            coins_compare = result;            
             for (let idx = 0 ; idx < coins_list.length ; idx++) {                
                 let vcoin_symbol = coins_list[idx].vcoin_symbol.toUpperCase(); 
                 let vcoin_res = coins_compare[vcoin_symbol];                
                 if (vcoin_res == undefined || vcoin_res.USD == undefined) {
-                    addDataOption(idx, vcoin_symbol);
+                    if (init_graph)
+                        addDataOption(idx, vcoin_symbol);
                     continue; // next coin result ..                    
                 }                    
-
                 if (init_graph) { // add data option and first point
                     addDataOption(idx, vcoin_symbol);                    
                     addDataPoint(idx, vcoin_symbol);
@@ -597,114 +565,3 @@ function getVirtCoinsCompare(coins_list, init_graph){
         }
     })
 }
-
-
-//////////////////
-/*
-<!DOCTYPE HTML>
-<html>
-<head>
-<script type = "text/javascript" >
-window.onload = function () {
-	var dataPoints = [{y : 10}, {y : 13}, {y : 18}, {y : 20}, {y : 17}];
-	var chart = new CanvasJS.Chart("chartContainer", {
-			title : {
-				text : "Dynamic Data"
-			},
-			data : [{
-					type : "spline",
-					dataPoints : dataPoints
-				}
-			]
-		});
-
-	chart.render();
-	
-	var yVal = 15, updateCount = 0;
-	var updateChart = function () {
-
-		yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
-      	updateCount++;
-		
-		dataPoints.push({
-			y : yVal
-		});
-      	
-        chart.options.title.text = "Update " + updateCount;
-		chart.render();    
-		
-	};
-
-	// update chart every second
-	setInterval(function(){updateChart()}, 1000);
-}	
-</script>
-<script type = "text/javascript" src = "/assets/script/canvasjs.min.js" >  </script>
-</head>
-<body>
-<div id = "chartContainer" style = "height: 300px; width: 100%;" />
-</body>
-</html>
-
-/////// DYNAMIC CHARTS:    ///////////////////////
-
-<!DOCTYPE HTML>
-<html>
-<head>
-	<script type="text/javascript">
-	window.onload = function () {
-
-      var dps = [{x: 1, y: 10}, {x: 2, y: 13}, {x: 3, y: 18}, {x: 4, y: 20}, {x: 5, y: 17},{x: 6, y: 10}, {x: 7, y: 13}, {x: 8, y: 18}, {x: 9, y: 20}, {x: 10, y: 17}];   //dataPoints. 
-
-      var chart = new CanvasJS.Chart("chartContainer",{
-      	title :{
-      		text: "Live Data"
-      	},
-      	axisX: {						
-      		title: "Axis X Title"
-      	},
-      	axisY: {						
-      		title: "Units"
-      	},
-      	data: [{
-      		type: "line",
-      		dataPoints : dps
-      	}]
-      });
-
-      chart.render();
-      var xVal = dps.length + 1;
-      var yVal = 15;	
-      var updateInterval = 1000;
-
-      var updateChart = function () {
-      	
-      	
-      	yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-      	dps.push({x: xVal,y: yVal});
-      	
-      	xVal++;
-      	if (dps.length >  10 )
-      	{
-      		dps.shift();				
-      	}
-
-      	chart.render();		
-
-	// update chart after specified time. 
-
-};
-
-setInterval(function(){updateChart()}, updateInterval); 
-}
-</script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</head>
-<body>
-	<div id="chartContainer" style="height: 300px; width: 100%;">
-	</div>
-</body>
-</html>
-
-
-*/
